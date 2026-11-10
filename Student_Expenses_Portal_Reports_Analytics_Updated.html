@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Expenses Portal</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--purple:#6d4aff;--purple-dark:#5434df;--ink:#24213b;--muted:#85839a;--line:#eeedf4;--bg:#f7f7fb;--mint:#dff8ef;--pink:#ffe8ef;--violet:#eee9ff;--amber:#fff3d9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px}.app-shell{min-height:100vh}.sidebar{width:250px;background:#fff;position:fixed;inset:0 auto 0 0;padding:27px 18px 18px;display:flex;flex-direction:column;border-right:1px solid var(--line);z-index:5}.brand{display:flex;align-items:center;gap:11px;padding:0 10px 36px}.brand-mark{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,#8b6cff,#5634e8);display:grid;place-items:center;color:#fff;font:800 21px Manrope;box-shadow:0 7px 16px #6d4aff35}.brand b{font:800 14px Manrope;letter-spacing:-.4px}.brand small{display:block;color:#aaa6bb;font-size:9px;letter-spacing:1.5px;margin-top:3px}.side-label,.eyebrow{font-size:9px;letter-spacing:1.6px;color:#aaa6bb;font-weight:700}.side-label{padding:0 12px 12px}.sidebar nav{display:grid;gap:5px}.nav-link{display:flex;align-items:center;gap:13px;text-decoration:none;color:#77758d;padding:12px 13px;border-radius:11px;font-weight:600;transition:.2s}.nav-link span{font-size:18px;width:20px;text-align:center}.nav-link:hover{background:#f7f5ff;color:var(--purple)}.nav-link.active{background:#f0edff;color:var(--purple);font-weight:700}.sidebar-bottom{margin-top:auto}.help-card{background:linear-gradient(145deg,#f1edff,#faf8ff);padding:17px;border-radius:15px;margin:0 2px 20px}.help-icon{font-size:20px;color:var(--purple);margin-bottom:9px}.help-card b{font:700 13px Manrope}.help-card p{font-size:11px;color:#8d89a1;line-height:1.6;margin:7px 0 0}.user-mini{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding:17px 5px 0}.avatar,.top-avatar{width:35px;height:35px;border-radius:50%;background:#e9e3ff;color:#6847ed;display:grid;place-items:center;font-weight:800}.user-mini b{font-size:12px}.user-mini small{display:block;color:#aaa6bb;font-size:10px;margin-top:3px}.online-dot{width:7px;height:7px;background:#35c58a;border-radius:50%;margin-left:auto}
+.main{margin-left:250px;min-height:100vh}.topbar{height:88px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 42px;position:sticky;top:0;z-index:4}.topbar h1{font:800 21px Manrope;margin:5px 0 0;letter-spacing:-.5px}.top-actions{display:flex;align-items:center;gap:17px}.icon-btn,.mobile-menu{border:0;background:#f7f6fb;color:#77738c;border-radius:10px;width:36px;height:36px;font-size:17px}.top-avatar{width:36px;height:36px}.mobile-menu{display:none}.content{max-width:1450px;margin:auto;padding:30px 42px 18px}.page{display:none;animation:fade .25s ease}.page.active{display:block}@keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}.welcome-banner{min-height:300px;border-radius:22px;background:linear-gradient(112deg,#24194f 0%,#3b287e 56%,#6044c5 100%);padding:39px 43px;color:#fff;display:flex;justify-content:space-between;position:relative;overflow:hidden}.welcome-copy{position:relative;z-index:1;max-width:490px}.tag{font-size:9px;letter-spacing:1.8px;color:#c5b8ff;font-weight:700}.welcome-copy h2{font:800 clamp(30px,4vw,43px)/1.12 Manrope;letter-spacing:-1.6px;margin:14px 0}.welcome-copy h2 em{font-style:normal;color:#bcaeff}.welcome-copy p{font-size:12px;line-height:1.8;color:#d0c9e9;max-width:360px;margin-bottom:22px}.primary-btn{background:var(--purple);color:#fff;border:0;padding:12px 17px;border-radius:9px;font:700 12px 'DM Sans';cursor:pointer;box-shadow:0 5px 14px #6d4aff25;transition:.2s}.primary-btn:hover{background:var(--purple-dark);transform:translateY(-1px)}.welcome-copy .primary-btn{background:#fff;color:#5334d5}.welcome-copy .primary-btn span{margin-left:12px}.welcome-art{width:42%;position:relative;display:grid;place-items:center}.art-circle{position:absolute;width:270px;height:270px;border:1px solid #ffffff25;border-radius:50%;box-shadow:0 0 0 27px #ffffff09,0 0 0 54px #ffffff07}.art-card{width:245px;background:#ffffffed;color:#2b2450;padding:20px;border-radius:16px;box-shadow:0 18px 50px #160b4b55;transform:rotate(4deg);z-index:1}.art-card small{font-size:8px;color:#9a96ac;letter-spacing:1px;font-weight:700}.art-card strong{display:block;font:800 26px Manrope;margin:8px 0 17px}.art-bars{height:43px;display:flex;align-items:end;gap:7px;border-bottom:1px solid #eceaf4;padding:0 2px 5px}.art-bars i{display:block;width:13%;background:linear-gradient(#a993ff,#7656ed);border-radius:4px 4px 0 0}.art-bars i:nth-child(1){height:30%}.art-bars i:nth-child(2){height:55%}.art-bars i:nth-child(3){height:43%}.art-bars i:nth-child(4){height:78%}.art-bars i:nth-child(5){height:60%}.art-bars i:nth-child(6){height:90%}.art-bars i:nth-child(7){height:72%}.art-card span{font-size:9px;color:#9994aa;display:block;margin-top:12px}.float-chip{position:absolute;background:#fff;color:#6045d7;border-radius:9px;padding:9px 12px;font-size:10px;font-weight:700;box-shadow:0 7px 25px #1b105333;z-index:2}.chip-one{top:24px;right:8px;transform:rotate(-6deg)}.chip-two{bottom:19px;left:0;transform:rotate(5deg)}
+.section-heading,.panel-head,.page-intro{display:flex;align-items:center;justify-content:space-between}.section-heading{margin:31px 0 15px}.section-heading h2,.page-intro h2{font:800 19px Manrope;margin:6px 0 0;letter-spacing:-.5px}.text-btn{border:0;background:none;color:var(--purple);font:700 11px 'DM Sans';cursor:pointer}.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:19px}.stat-card,.panel{background:#fff;border:1px solid var(--line);border-radius:15px}.stat-card{padding:17px 18px}.stat-top{display:flex;justify-content:space-between;align-items:center;color:#8e8ba0;font-size:11px;font-weight:600}.stat-icon{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-size:17px}.mint{background:var(--mint);color:#21a979}.pink{background:var(--pink);color:#e56a8e}.violet{background:var(--violet);color:#795ce5}.amber{background:var(--amber);color:#d89a2a}.stat-card strong{font:800 22px Manrope;display:block;margin:13px 0 5px;letter-spacing:-.5px}.stat-card small{font-size:10px}.positive{color:#28ad7d}.muted{color:#aaa7b7}.home-bottom{display:grid;grid-template-columns:1.5fr 1fr;gap:15px}.panel{padding:20px;margin-bottom:17px}.panel-head{margin-bottom:15px}.panel-head h3,.tip-panel h3,.quote-panel h3{font:800 14px Manrope;margin:0}.panel-head p{font-size:10px;color:#aaa6b6;margin:5px 0 0}.sparkle{font-size:22px;color:#8a6cff}.feature-list{display:grid}.feature-list button{border:0;border-top:1px solid #f1eff6;background:#fff;display:flex;align-items:center;gap:12px;text-align:left;padding:13px 0;cursor:pointer}.feature-icon{width:35px;height:35px;border-radius:10px;display:grid;place-items:center;font-size:17px}.feature-list b{display:block;font-size:11px;color:#3b3851}.feature-list small{display:block;font-size:10px;color:#aaa6b7;margin-top:4px}.feature-list .arrow{margin-left:auto;color:#aaa6b7}.quote-panel{border-radius:15px;background:#f0edff;padding:25px;position:relative;overflow:hidden}.quote-mark{font:800 48px Georgia;color:#b5a5ff;height:42px}.quote-panel h3{font-size:17px;line-height:1.55;max-width:270px;margin:7px 0 20px}.quote-panel p{font-size:8px;letter-spacing:1.4px;color:#9a8cda;font-weight:700}.quote-decoration{position:absolute;right:14px;bottom:-22px;font-size:115px;color:#e0d9ff}
+.page-intro{margin:2px 0 23px}.page-intro h2{font-size:23px}.page-intro p{color:#9996a9;font-size:11px;margin:7px 0 0}.dashboard-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:15px}.pill{background:#f2efff;color:#795ce5;padding:6px 10px;border-radius:20px;font-size:9px;font-weight:700}.chart-wrap{height:220px;position:relative}.budget-meter{text-align:center;padding:20px 12px}.meter-number{font:800 38px Manrope;color:var(--purple);margin:7px 0 17px}.meter-track{height:9px;background:#f0eef6;border-radius:20px;overflow:hidden}.meter-track div{height:100%;width:0;background:linear-gradient(90deg,#9d85ff,#6746ec);border-radius:20px;transition:width .3s}.budget-meter p{font-size:10px;color:#a09cad;margin-top:14px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th{text-align:left;font-size:8px;letter-spacing:1px;color:#aaa6b7;padding:11px 9px;border-bottom:1px solid var(--line)}td{padding:13px 9px;border-bottom:1px solid #f4f2f7;font-size:10px;color:#68657a}td:first-child{font-weight:700;color:#38354c}.right{text-align:right}.empty{text-align:center;color:#aaa6b7;padding:25px}.type-income{color:#22a879;font-weight:700}.type-expense{color:#e36a8b;font-weight:700}.delete-btn{border:0;background:#fff0f3;color:#dc6686;border-radius:6px;padding:5px 8px;cursor:pointer;font-size:10px}.table-total{font:800 16px Manrope;color:var(--purple)}
+.form-layout,.budget-layout,.settings-layout{display:grid;grid-template-columns:1.25fr .85fr;gap:16px;margin-bottom:17px}.form-panel{padding:22px}.entry-form{display:grid;gap:14px}.entry-form label{display:grid;gap:7px;font-size:10px;color:#68657a;font-weight:700}.entry-form input,.entry-form select,.entry-form textarea{width:100%;border:1px solid #eae8f0;border-radius:8px;padding:11px 12px;background:#fff;font:11px 'DM Sans';color:#39364d;outline:none}.entry-form input:focus,.entry-form select:focus,.entry-form textarea:focus{border-color:#9c87ff;box-shadow:0 0 0 3px #6d4aff12}.entry-form textarea{resize:vertical}.two-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.optional{font-weight:400;color:#aaa6b7}.full-btn{width:100%;margin-top:3px}.tip-panel{border-radius:15px;background:linear-gradient(145deg,#e8fbf4,#f5fffb);padding:27px;display:flex;flex-direction:column;justify-content:center;min-height:300px}.tip-symbol{font-size:28px;color:#31b989;margin-bottom:15px}.tip-panel h3{font-size:20px;max-width:230px;line-height:1.35}.tip-panel p{color:#7e9d91;font-size:11px;line-height:1.8;max-width:270px}.tip-line{height:1px;background:#cceee1;margin:16px 0}.tip-panel small{font-size:8px;letter-spacing:1.5px;color:#62b798;font-weight:700;margin-bottom:8px}.tip-panel>b{font-size:11px;line-height:1.7;color:#477c69;max-width:260px}.expense-tip{background:linear-gradient(145deg,#fff0f4,#fff9fb)}.expense-tip .tip-symbol{color:#e77898}.expense-tip p{color:#ad8794}.expense-tip .tip-line{background:#f4dce5}.expense-tip small{color:#d77d98}.expense-tip>b{color:#996579}
+.budget-summary{padding:25px;background:linear-gradient(145deg,#f0edff,#faf9ff)}.budget-summary h3{font:800 17px Manrope;margin:13px 0}.budget-big{font:800 35px Manrope;color:#6747e9}.budget-summary>p{font-size:10px;color:#a09bad;margin:4px 0 24px}.budget-legend{display:flex;justify-content:space-between;margin-top:15px;font-size:10px;color:#89859a}.budget-legend b{display:block;color:#39354e;margin-top:5px}.tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.mini-tip{padding:8px 4px}.mini-tip span{font:800 18px Manrope;color:#a18bff}.mini-tip b{display:block;font:700 12px Manrope;margin:10px 0 6px}.mini-tip p{font-size:10px;color:#9d99ab;line-height:1.7;margin:0}
+.goals-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.goal-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:19px}.goal-card-top{display:flex;justify-content:space-between;align-items:center}.goal-icon{width:37px;height:37px;border-radius:11px;background:#fff3d9;color:#d69a2b;display:grid;place-items:center;font-size:18px}.goal-card h3{font:800 14px Manrope;margin:14px 0 5px}.goal-card p{font-size:10px;color:#a19daf;margin:0 0 15px}.goal-progress{height:7px;background:#f0eef5;border-radius:10px;overflow:hidden}.goal-progress div{height:100%;background:linear-gradient(90deg,#b29fff,#7452ee);border-radius:10px}.goal-numbers{display:flex;justify-content:space-between;font-size:10px;color:#9793a6;margin-top:10px}.goal-numbers b{color:#5e48bd}.empty-goal{grid-column:1/-1;text-align:center;color:#aaa6b7;padding:35px}
+.category-legend{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}.category-legend span{font-size:9px;color:#88849a}.category-legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px}.summary-row{display:flex;justify-content:space-between;border-top:1px solid #f1eff5;padding:13px 3px;font-size:11px;color:#8c899d}.summary-row b{color:#37344c}.outline-btn{background:#fff;border:1px solid #e8e5f0;color:#6c4ae8;border-radius:8px;padding:10px 13px;font:700 10px 'DM Sans';cursor:pointer}.settings-layout{grid-template-columns:.7fr 1.3fr}.profile-card{text-align:center;padding:30px 20px}.profile-avatar{width:65px;height:65px;border-radius:22px;background:#eee9ff;color:#704ce9;display:grid;place-items:center;font:800 25px Manrope;margin:0 auto 14px}.profile-card h3{font:800 16px Manrope;margin:0 0 5px}.profile-card p{font-size:10px;color:#a29eaf;margin:0 0 15px}.danger-zone{display:flex;align-items:center;justify-content:space-between}.danger-zone h3{font:800 13px Manrope;margin:0 0 6px}.danger-zone p{font-size:10px;color:#a09cad;margin:0}.danger-btn{border:1px solid #f4d5dd;background:#fff7f8;color:#d45f7f;border-radius:8px;padding:10px 13px;font:700 10px 'DM Sans';cursor:pointer}
+footer{display:flex;justify-content:space-between;color:#aaa6b7;font-size:9px;padding:15px 2px 5px}footer span{color:#b4a9e8}.toast{position:fixed;right:25px;bottom:25px;background:#282044;color:#fff;padding:12px 17px;border-radius:9px;font-size:11px;box-shadow:0 8px 30px #20164030;opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s;z-index:20}.toast.show{opacity:1;transform:translateY(0)}
+
+/* Spending and savings highlight */
+.money-highlight{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 17px}
+.money-highlight-card{position:relative;overflow:hidden;border-radius:16px;padding:21px 23px;min-height:142px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.money-highlight-card.spent{background:linear-gradient(120deg,#fff0f4,#fff9fb);border:1px solid #f8e3e9}
+.money-highlight-card.saved{background:linear-gradient(120deg,#e9fbf4,#f8fffb);border:1px solid #dff4e9}
+.money-highlight-copy{position:relative;z-index:1}
+.money-highlight-kicker{font-size:9px;letter-spacing:1.5px;font-weight:800;color:#a58e9b}
+.money-highlight-card.saved .money-highlight-kicker{color:#6eaa91}
+.money-highlight-copy h3{font:800 14px Manrope;color:#39354e;margin:8px 0 5px}
+.money-highlight-amount{font:800 27px Manrope;color:#df7894}
+.money-highlight-card.saved .money-highlight-amount{color:#28a77b}
+.money-highlight-note{font-size:9px;color:#a49aa2;margin-top:5px}
+.money-highlight-art{width:76px;height:76px;flex:0 0 76px;border-radius:24px;display:grid;place-items:center;font-size:32px;transform:rotate(7deg);background:#ffffffa8;box-shadow:0 8px 22px #5a3c2510}
+.money-highlight-card.saved .money-highlight-art{transform:rotate(-7deg);color:#29a77b}
+@media(max-width:760px){.money-highlight{grid-template-columns:1fr;gap:10px}.money-highlight-card{min-height:125px;padding:17px 19px}.money-highlight-amount{font-size:24px}}
+
+@media(max-width:1100px){.content{padding:25px}.topbar{padding:0 25px}.stats-grid{grid-template-columns:repeat(2,1fr)}.welcome-banner{padding:32px}.welcome-art{width:38%}}
+@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:.25s;box-shadow:10px 0 30px #17102a10}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.mobile-menu{display:block;margin-right:12px}.topbar{height:75px;padding:0 17px;justify-content:flex-start}.topbar>div:nth-child(2){flex:1}.top-actions{margin-left:auto}.content{padding:20px 15px}.welcome-banner{padding:27px 23px;min-height:260px}.welcome-art{display:none}.welcome-copy h2{font-size:34px}.stats-grid{gap:9px}.stat-card{padding:14px}.stat-card strong{font-size:18px}.home-bottom,.dashboard-grid,.form-layout,.budget-layout,.settings-layout{grid-template-columns:1fr}.quote-panel{min-height:190px}.page-intro{align-items:flex-start;gap:12px}.page-intro h2{font-size:20px}.page-intro .primary-btn{white-space:nowrap}.tips-grid{grid-template-columns:1fr;gap:10px}.mini-tip{border-bottom:1px solid var(--line);padding:8px 0 13px}.goals-grid{grid-template-columns:1fr}.two-fields{gap:8px}.panel{padding:16px}.form-panel{padding:17px}.danger-zone{align-items:flex-start;gap:15px;flex-direction:column}footer{display:block;line-height:2}footer span{display:block}}
+
+
+/* Important scrolling note and Spending & Savings page */
+.important-ticker{display:flex;align-items:center;gap:13px;margin:17px 29px 0;padding:0 14px;height:43px;border:1px solid #eee8ff;border-radius:11px;background:linear-gradient(100deg,#f5f1ff,#fff9f4);overflow:hidden}
+.ticker-label{flex:0 0 auto;font-size:9px;font-weight:900;letter-spacing:1.1px;color:#7657df;background:#ebe4ff;border-radius:7px;padding:7px 9px}
+.ticker-window{min-width:0;overflow:hidden;white-space:nowrap;flex:1}
+.ticker-track{display:flex;width:max-content;animation:portalTicker 32s linear infinite}
+.ticker-track span{font-size:10px;font-weight:700;color:#615b78;padding-right:65px}
+.important-ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes portalTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.spending-page-highlight{margin-top:8px}
+.spending-message-panel{display:flex;align-items:center;gap:15px;margin-top:16px;padding:19px 22px}
+.spending-message-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:#f1edff;color:#8061e9;font-size:22px;flex:0 0 42px}
+.spending-message-panel h3{font:800 13px Manrope;color:#39354e;margin:0 0 5px}
+.spending-message-panel p{font-size:10px;color:#9691a4;margin:0;line-height:1.6}
+@media(max-width:760px){.important-ticker{margin:12px 15px 0;height:45px;gap:8px;padding:0 9px}.ticker-label{font-size:8px;padding:6px}.ticker-track span{font-size:9px}.spending-message-panel{padding:15px}}
+@media(prefers-reduced-motion:reduce){.ticker-track{animation:none;transform:none}}
+
+/* Login and create-account screen */
+.auth-screen{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 15% 15%,#eee8ff 0,transparent 35%),radial-gradient(circle at 85% 85%,#e5ddff 0,transparent 35%),#f7f6fc}
+.auth-card{width:min(100%,420px);background:#fff;border:1px solid #eeebf7;border-radius:22px;padding:34px;box-shadow:0 22px 70px #44327b18}
+.auth-brand{display:flex;align-items:center;gap:12px;margin-bottom:27px}.auth-logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#947cff,#5938e8);display:grid;place-items:center;color:white;font:800 23px Manrope;box-shadow:0 8px 18px #6d4aff35}.auth-brand strong{font:800 17px Manrope;color:#282342}.auth-brand small{display:block;color:#aaa6bb;font-size:9px;letter-spacing:1.5px;margin-top:4px}.auth-card h1{font:800 25px Manrope;margin:0 0 7px;color:#282342}.auth-sub{color:#9290a3;font-size:12px;margin:0 0 23px}.auth-form{display:grid;gap:14px}.auth-form label{display:grid;gap:7px;font-size:11px;font-weight:700;color:#68657a}.auth-form input{width:100%;padding:13px 14px;border:1px solid #e8e5f0;border-radius:10px;outline:none;font:13px 'DM Sans';color:#302c48}.auth-form input:focus{border-color:#927aff;box-shadow:0 0 0 3px #6d4aff12}.auth-submit{width:100%;padding:13px;border:0;border-radius:10px;background:linear-gradient(100deg,#7959f3,#5938df);color:white;font:700 13px 'DM Sans';cursor:pointer;margin-top:5px}.auth-switch{text-align:center;font-size:11px;color:#9692a6;margin:20px 0 0}.auth-switch button{border:0;background:none;color:#6747e8;font:700 11px 'DM Sans';cursor:pointer}.auth-message{min-height:16px;color:#d35b7c;font-size:11px;margin:10px 0 0}.auth-message.ok{color:#21996e}.auth-screen[hidden],.app-shell[hidden]{display:none!important}
+
+/* VISUAL REFRESH ONLY — existing portal behavior and form logic are preserved */
+:root{
+  --purple:#087f70;--purple-dark:#06685d;--ink:#172f31;--muted:#718486;
+  --line:#e1ebe6;--bg:#f3f7f3;--mint:#def4e9;--pink:#fbe9e2;--violet:#e2f0ec;--amber:#f8f0d9;
+}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif}
+.sidebar{background:#142d2e;border-right:1px solid #244243;color:#fff}
+.brand b{color:#f4fbf6}.brand small,.side-label{color:#8eaaa3}
+.brand-mark{background:linear-gradient(145deg,#b6e66e,#3ab69a);color:#153d35;box-shadow:0 8px 22px #071f1c70}
+.nav-link{color:#b2c6bf;border-radius:12px}
+.nav-link:hover{background:#214443;color:#d8f5a7}
+.nav-link.active{background:#d4efaa;color:#173d36}
+.help-card{background:linear-gradient(145deg,#214846,#1b393a);color:#eff8ed}
+.help-card b{color:#e8f4d9}.help-card p{color:#a9c1b8}.help-icon{color:#c7ed83}
+.user-mini{border-color:#315050}.user-mini b{color:#f4fbf6}.user-mini small{color:#9bb4aa}
+.avatar,.top-avatar{background:#d7efb4;color:#20554a}
+.main{background:linear-gradient(180deg,#f7faf6 0%,#f1f6f1 100%)}
+.topbar{background:#fbfdf9;border-bottom:1px solid #e1ebe4}
+.topbar h1{color:#183637}
+.content{max-width:1500px}
+.welcome-banner{background:radial-gradient(circle at 83% 20%,#3b8f79 0,transparent 28%),linear-gradient(115deg,#173638 0%,#1e5550 58%,#277c68 100%);border:1px solid #2c665d;box-shadow:0 18px 38px #17483c18}
+.welcome-copy h2 em{color:#c9ef8c}
+.welcome-copy .primary-btn{background:#d5f09d;color:#1b4940}
+.primary-btn{background:linear-gradient(110deg,#0b8d78,#087466);box-shadow:0 7px 18px #087f7026;border-radius:11px}
+.primary-btn:hover{background:#06685d}
+.text-btn{color:#087f70}
+.stat-card,.panel,.goal-card{border-color:#e1ebe4;border-radius:18px;box-shadow:0 7px 22px #23483a08}
+.stat-card strong{color:#193b39}
+.mint{background:#def4e9;color:#16836c}.pink{background:#fbe9e2;color:#c46c50}
+.violet{background:#e2f0ec;color:#267d70}.amber{background:#f8f0d9;color:#b1842b}
+.quote-panel{background:linear-gradient(145deg,#e5f3e6,#f2f7df)}
+.quote-mark,.sparkle{color:#6aa88a}
+.entry-form input,.entry-form select,.entry-form textarea{border-color:#dce8e1;border-radius:11px;background:#fcfefb}
+.entry-form input:focus,.entry-form select:focus,.entry-form textarea:focus{border-color:#58a995;box-shadow:0 0 0 3px #087f7014}
+.table-wrap{border-radius:12px}
+th{color:#78918a}
+td{color:#536c67;border-bottom-color:#edf2ee}
+td:first-child{color:#1d3d39}
+.table-total{color:#087f70}
+.goal-progress div,.meter-track div{background:linear-gradient(90deg,#b8e77b,#0c9079)}
+.meter-number{color:#087f70}
+.goal-numbers b{color:#087f70}
+.pill{background:#e4f3e9;color:#087f70}
+.profile-avatar{background:#dff1d3;color:#087f70}
+.toast{background:#183b39;box-shadow:0 10px 30px #173c3330}
+footer span{color:#6b9c7e}
+.delete-btn{background:#fff0e9;color:#bb684e}
+.outline-btn{color:#087f70;border-color:#d7e6dc}
+.form-panel,.budget-layout .panel{box-shadow:0 7px 22px #23483a08}
+
+/* Distinct split-screen login */
+.auth-screen{
+  min-height:100vh;padding:28px;
+  background:
+    radial-gradient(circle at 8% 12%,#c9e9d0 0,transparent 28%),
+    radial-gradient(circle at 92% 88%,#dceebd 0,transparent 30%),
+    #edf4ed;
+}
+.auth-card{
+  width:min(100%,980px);min-height:590px;padding:0;overflow:hidden;
+  display:grid;grid-template-columns:1.02fr .98fr;align-items:stretch;
+  border:1px solid #e1eae1;border-radius:28px;
+  box-shadow:0 28px 90px #173d3020;
+}
+.auth-visual{
+  grid-column:1;grid-row:1 / span 5;position:relative;overflow:hidden;
+  min-height:590px;padding:55px 42px;color:#f5fbf3;
+  background:radial-gradient(circle at 78% 12%,#4c9b7b 0,transparent 29%),
+             linear-gradient(145deg,#153536 0%,#1b514a 58%,#26725d 100%);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.auth-visual:after{content:"";position:absolute;width:310px;height:310px;border-radius:50%;border:1px solid #ffffff20;right:-105px;top:-100px;box-shadow:0 0 0 35px #ffffff08,0 0 0 75px #ffffff06}
+.visual-orbit{position:absolute;border:1px solid #d7f4bd30;border-radius:50%;pointer-events:none}
+.orbit-one{width:260px;height:260px;right:-70px;bottom:-60px}
+.orbit-two{width:180px;height:180px;right:-30px;bottom:-20px}
+.visual-kicker{font-size:9px;letter-spacing:2.2px;font-weight:800;color:#c6e89b;position:relative;z-index:1}
+.visual-title{font:800 clamp(35px,4.5vw,52px)/1.08 Manrope;letter-spacing:-2px;margin:18px 0 13px;position:relative;z-index:1}
+.visual-title em{font-style:normal;color:#c9ef8c}
+.visual-copy{max-width:300px;color:#c3d9ce;font-size:12px;line-height:1.8;margin:0 0 28px;position:relative;z-index:1}
+.visual-mini-card{position:relative;z-index:1;width:min(100%,310px);padding:18px 19px;border:1px solid #ffffff25;border-radius:17px;background:#ffffff12;backdrop-filter:blur(8px)}
+.visual-mini-card span{font-size:8px;letter-spacing:1.5px;color:#c5dfc9;font-weight:700}
+.visual-mini-card strong{display:block;font:700 15px Manrope;margin:9px 0 14px;color:#fff}
+.visual-mini-card small{display:block;font-size:9px;color:#c5dfc9;margin-top:12px}
+.visual-mini-bars{height:36px;display:flex;align-items:end;gap:7px;border-bottom:1px solid #ffffff30;padding:0 2px 4px}
+.visual-mini-bars i{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(#d5f09d,#6bc4a0)}
+.visual-mini-bars i:nth-child(1){height:35%}.visual-mini-bars i:nth-child(2){height:55%}
+.visual-mini-bars i:nth-child(3){height:43%}.visual-mini-bars i:nth-child(4){height:78%}
+.visual-mini-bars i:nth-child(5){height:60%}.visual-mini-bars i:nth-child(6){height:90%}
+.visual-mini-bars i:nth-child(7){height:72%}
+.visual-stamp{position:absolute;right:34px;bottom:24px;font-size:64px;color:#d5f09d55}
+.auth-brand{grid-column:2;grid-row:1;align-self:end;margin:0;padding:44px 48px 0}
+.auth-logo{background:linear-gradient(145deg,#b6e66e,#3ab69a);color:#153d35;box-shadow:0 8px 18px #087f7030}
+.auth-brand strong{color:#173b39}
+#loginPanel,#forgotPanel,#createPanel{grid-column:2;padding:24px 48px 38px}
+#loginPanel{grid-row:2}#forgotPanel{grid-row:2}#createPanel{grid-row:2}
+.auth-card h1{color:#183a38;font-size:27px}
+.auth-sub{color:#718681;line-height:1.65}
+.auth-form label{color:#4c6862}
+.auth-form input{border-color:#dce8e1;border-radius:11px;background:#fbfefb;padding:14px}
+.auth-form input:focus{border-color:#55a58e;box-shadow:0 0 0 3px #087f7014}
+.auth-submit{background:linear-gradient(110deg,#0b8d78,#087466);border-radius:11px;box-shadow:0 8px 18px #087f7026}
+.auth-submit:hover{filter:brightness(.96)}
+.auth-switch{color:#82958f}
+.auth-switch button{color:#087f70}
+.auth-message{margin-top:12px}
+@media(max-width:760px){
+ .auth-screen{padding:14px;min-height:100svh}
+ .auth-card{width:min(100%,480px);min-height:0;display:block;border-radius:22px}
+ .auth-visual{min-height:0;padding:26px 25px 23px}
+ .visual-title{font-size:34px;margin:10px 0 8px}
+ .visual-copy{font-size:11px;margin-bottom:0;max-width:290px}
+ .visual-mini-card{display:none}
+ .visual-stamp{font-size:42px;right:20px;bottom:12px}
+ .auth-brand{padding:25px 25px 0;margin:0}
+ #loginPanel,#forgotPanel,#createPanel{padding:18px 25px 27px}
+ .auth-brand{margin-bottom:0}
+}
+
+
+/* Joy University-inspired identity treatment; portal functions remain unchanged */
+.brand{gap:10px}.brand-mark{background:#fff;border:1px solid #e8e8e8;border-radius:10px;overflow:hidden;padding:3px;box-shadow:none}
+.brand-mark img{width:100%;height:100%;object-fit:contain}
+.brand b{font-family:Georgia,serif;letter-spacing:.3px;font-size:13px}
+.brand small{letter-spacing:1.15px;color:#b9c4c1;font-size:8px}
+.auth-logo{background:#fff;border:1px solid #e7e7e7;border-radius:12px;padding:4px;overflow:hidden;box-shadow:none}
+.auth-logo img{width:100%;height:100%;object-fit:contain}
+.auth-brand strong{font-family:Georgia,serif;letter-spacing:.5px;font-size:18px}
+.auth-brand small{letter-spacing:1.6px;color:#9b343c}
+.auth-visual{background:radial-gradient(circle at 80% 15%,#777 0,transparent 26%),linear-gradient(145deg,#252a30 0%,#484c52 60%,#7e222d 100%)}
+.visual-kicker{color:#e6b8b9}
+.visual-title em{color:#e5b9bb}
+.visual-mini-bars i{background:linear-gradient(#d6d8dc,#a82b37)}
+.primary-btn,.auth-submit{background:linear-gradient(105deg,#a51f2d,#761c29)}
+.primary-btn:hover{background:#781d28}
+.nav-link.active{background:#f7e9ea;color:#8e2530}
+.text-btn,.auth-switch button{color:#932532}
+.avatar,.top-avatar{background:#f4e5e6;color:#8e2530}
+@media(max-width:760px){.brand b{font-size:12px}}
+
+
+/* Top-right Joy University logo only */
+.top-avatar.joy-top-logo{background:#fff;border:1px solid #e4e4e4;border-radius:50%;overflow:hidden;padding:5px;box-shadow:0 2px 8px #00000012}
+.top-avatar.joy-top-logo img{display:block;width:100%;height:100%;object-fit:contain;border-radius:50%}
+\n
+/* Reports & Analytics improvements — scoped to this page only */
+#page-reports .chart-wrap{height:260px;min-height:220px}
+#page-reports .report-category-details{display:grid;gap:10px;margin-top:16px}
+#page-reports .report-category-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 10px;border:1px solid #edf1ed;border-radius:10px;background:#fbfdfb}
+#page-reports .report-category-name{display:flex;align-items:center;gap:8px;min-width:0;font-size:10px;font-weight:700;color:#536c67}
+#page-reports .report-category-dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%}
+#page-reports .report-category-meta{font-size:9px;color:#98a8a0;font-weight:500;margin-left:17px;margin-top:3px}
+#page-reports .report-category-value{text-align:right;font-size:11px;font-weight:800;color:#1d3d39}
+#page-reports .report-empty-chart{height:100%;display:grid;place-items:center;text-align:center;color:#94a49b;font-size:11px;padding:20px}
+#page-reports .report-empty-chart strong{display:block;color:#536c67;font:700 13px Manrope;margin-bottom:5px}
+@media(max-width:760px){#page-reports .chart-wrap{height:230px}}
+
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<section class="auth-screen" id="authScreen">
+  <div class="auth-card">
+    <div class="auth-visual" aria-hidden="true">
+      <div class="visual-orbit orbit-one"></div>
+      <div class="visual-orbit orbit-two"></div>
+      <div class="visual-kicker">YOUR MONEY. YOUR MOMENTUM.</div>
+      <div class="visual-title">Make every<br><em>rupee count.</em></div>
+      <p class="visual-copy">A clearer view of your income, spending and savings — all in one calm space.</p>
+      <div class="visual-mini-card">
+        <span>MONTHLY SNAPSHOT</span>
+        <strong>Plan · Track · Grow</strong>
+        <div class="visual-mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <small>Small steps build better habits.</small>
+      </div>
+      <div class="visual-stamp">✳</div>
+    </div>
+    <div class="auth-brand"><div class="auth-logo"><img src="https://www.local18.in/_next/image/?q=75&url=https%3A%2F%2Fmedia.collegedekho.com%2Fmedia%2Fimg%2Finstitute%2Flogo%2FJU_Logo_-_High_weight_-semper_ceCLx5r.png%3Fimwidth%3D474&w=3840" alt="Joy University logo"></div><div><strong>JOY UNIVERSITY</strong><small>STUDENT FINANCE PORTAL</small></div></div>
+    <div id="loginPanel">
+      <h1>Welcome back</h1><p class="auth-sub">Login with your username and password to continue.</p>
+      <form class="auth-form" id="loginForm">
+        <label>Username<input id="loginUsername" type="text" placeholder="Enter your username" autocomplete="username" required></label>
+        <label>Password<input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password" required></label>
+        <button class="auth-submit" type="submit">Login to Portal</button>
+      </form>
+      <p class="auth-switch"><button type="button" id="showForgot">Forgot Password?</button></p>
+      <p class="auth-switch">New student? <button type="button" id="showCreate">Create Account</button></p>
+      <p class="auth-message" id="loginMessage" role="status"></p>
+    </div>
+    <div id="forgotPanel" hidden>
+      <h1>Reset your password</h1><p class="auth-sub">Verify your username and registered email to create a new password.</p>
+      <form class="auth-form" id="forgotForm">
+        <label>Username<input id="forgotUsername" type="text" placeholder="Enter your username" autocomplete="username" required></label>
+        <label>Registered email<input id="forgotEmail" type="email" placeholder="Enter your registered email" autocomplete="email" required></label>
+        <label>New password<input id="forgotPassword" type="password" placeholder="Enter a new password" minlength="4" autocomplete="new-password" required></label>
+        <label>Confirm new password<input id="forgotConfirm" type="password" placeholder="Re-enter your new password" minlength="4" autocomplete="new-password" required></label>
+        <button class="auth-submit" type="submit">Reset Password</button>
+      </form>
+      <p class="auth-switch">Remembered your password? <button type="button" id="backToLogin">Back to Login</button></p>
+      <p class="auth-message" id="forgotMessage" role="status"></p>
+    </div>
+    <div id="createPanel" hidden>
+      <h1>Create your account</h1><p class="auth-sub">Create a username and password to access the portal.</p>
+      <form class="auth-form" id="createForm">
+        <label>Username<input id="createUsername" type="text" placeholder="Choose a username" autocomplete="username" minlength="3" required></label>
+        <label>Email address<input id="createEmail" type="email" placeholder="Enter your email for password recovery" autocomplete="email" required></label>
+        <label>Password<input id="createPassword" type="password" placeholder="Create a password" autocomplete="new-password" minlength="4" required></label>
+        <label>Confirm Password<input id="confirmPassword" type="password" placeholder="Re-enter your password" autocomplete="new-password" minlength="4" required></label>
+        <button class="auth-submit" type="submit">Create Account</button>
+      </form>
+      <p class="auth-switch">Already have an account? <button type="button" id="showLogin">Login</button></p>
+      <p class="auth-message" id="createMessage" role="status"></p>
+    </div>
+  </div>
+</section>
+<div class="app-shell" id="appShell" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brand-mark"><img src="https://www.local18.in/_next/image/?q=75&url=https%3A%2F%2Fmedia.collegedekho.com%2Fmedia%2Fimg%2Finstitute%2Flogo%2FJU_Logo_-_High_weight_-semper_ceCLx5r.png%3Fimwidth%3D474&w=3840" alt="Joy University logo"></div><div><b>JOY UNIVERSITY</b><small>STUDENT FINANCE PORTAL</small></div></div>
+    <div class="side-label">WORKSPACE</div>
+    <nav>
+      <a class="nav-link active" href="#home" data-page="home"><span>⌂</span> Home</a>
+      <a class="nav-link" href="#dashboard" data-page="dashboard"><span>▦</span> Dashboard</a>
+      <a class="nav-link" href="#income" data-page="income"><span>↙</span> Income Management</a>
+      <a class="nav-link" href="#expenses" data-page="expenses"><span>↗</span> Expense Tracking</a>
+      <a class="nav-link" href="#budget" data-page="budget"><span>▤</span> Budget Planning</a>
+      <a class="nav-link" href="#spending" data-page="spending"><span>◉</span> Spending & Savings</a>
+      <a class="nav-link" href="#savings" data-page="savings"><span>◈</span> Savings Goals</a>
+      <a class="nav-link" href="#reports" data-page="reports"><span>▥</span> Reports & Analytics</a>
+      <a class="nav-link" href="#settings" data-page="settings"><span>⚙</span> Profile & Settings</a>
+    </nav>
+    <div class="sidebar-bottom"><div class="help-card"><div class="help-icon">✦</div><b>Small steps, big goals.</b><p>Keep track of your money and make every rupee count.</p></div><div class="user-mini"><div class="avatar">S</div><div><b id="sideName">Student</b><small>Student account</small></div><span class="online-dot"></span></div></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><button class="mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow" id="dateLabel">STUDENT FINANCE</div><h1 id="pageTitle">Home</h1></div><div class="top-actions"><button class="icon-btn" title="Notifications">♧</button><div class="top-avatar joy-top-logo" id="topAvatar"><img src="https://www.local18.in/_next/image/?q=75&url=https%3A%2F%2Fmedia.collegedekho.com%2Fmedia%2Fimg%2Finstitute%2Flogo%2FJU_Logo_-_High_weight_-semper_ceCLx5r.png%3Fimwidth%3D474&w=3840" alt="Joy University logo"></div></div></header>
+    <div class="important-ticker" role="note" aria-label="Important student finance note">
+      <span class="ticker-label">IMPORTANT NOTE</span>
+      <div class="ticker-window"><div class="ticker-track"><span>✦ Track every expense as soon as you spend. Update your income and savings regularly to keep your financial plan accurate. ✦</span><span aria-hidden="true">Track every expense as soon as you spend. Update your income and savings regularly to keep your financial plan accurate. ✦</span></div></div>
+    </div>
+    <div class="content">
+      <section class="page active" id="page-home">
+        <div class="welcome-banner"><div class="welcome-copy"><span class="tag">YOUR MONEY, YOUR PLAN</span><h2>Make your money<br><em>work for you.</em></h2><p>A simple space to manage your student income, daily spending and future goals.</p><button class="primary-btn" data-go="dashboard">Explore dashboard <span>→</span></button></div><div class="welcome-art"><div class="art-circle"></div><div class="art-card"><small>AVAILABLE BALANCE</small><strong id="heroBalance">₹0.00</strong><div class="art-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span>Build better money habits ✦</span></div><div class="float-chip chip-one">↗ Save smart</div><div class="float-chip chip-two">₹ Track spending</div></div></div>
+        <div class="section-heading"><div><span class="eyebrow">QUICK OVERVIEW</span><h2>Your financial snapshot</h2></div><button class="text-btn" data-go="dashboard">View dashboard →</button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total Income</span><span class="stat-icon mint">↙</span></div><strong id="homeIncome">₹0</strong><small class="positive">Money received</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Total Expenses</span><span class="stat-icon pink">↗</span></div><strong id="homeExpense">₹0</strong><small class="muted">Money spent</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Remaining Balance</span><span class="stat-icon violet">◈</span></div><strong id="homeBalance">₹0</strong><small class="positive">Available to use</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Active Goals</span><span class="stat-icon amber">◎</span></div><strong id="homeGoals">0</strong><small class="muted">Things you're saving for</small></article>
+        </div>
+        <div class="home-bottom"><div class="panel feature-panel"><div class="panel-head"><div><span class="eyebrow">GET STARTED</span><h3>Manage your money in one place</h3></div><span class="sparkle">✦</span></div><div class="feature-list"><button data-go="income"><span class="feature-icon mint">＋</span><span><b>Add your income</b><small>Scholarship, allowance or part-time work</small></span><span class="arrow">→</span></button><button data-go="expenses"><span class="feature-icon pink">↗</span><span><b>Record an expense</b><small>Track food, travel, books and more</small></span><span class="arrow">→</span></button><button data-go="savings"><span class="feature-icon amber">◎</span><span><b>Create a savings goal</b><small>Plan for something important</small></span><span class="arrow">→</span></button></div></div><div class="quote-panel"><div class="quote-mark">“</div><h3>It’s not about how much money you have. It’s about how wisely you manage it.</h3><p>YOUR STUDENT MONEY JOURNEY</p><div class="quote-decoration">✳</div></div></div>
+      </section>
+
+      <section class="page" id="page-dashboard">
+        <div class="page-intro"><div><span class="eyebrow">AT A GLANCE</span><h2>Welcome back, <span id="dashName">Student</span>!</h2><p>Here’s how your student budget is looking.</p></div><button class="primary-btn" data-go="income">＋ Add transaction</button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total Income</span><span class="stat-icon mint">↙</span></div><strong id="dashIncome">₹0</strong><small class="positive">All recorded income</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Total Expenses</span><span class="stat-icon pink">↗</span></div><strong id="dashExpense">₹0</strong><small class="muted">All recorded expenses</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Available Balance</span><span class="stat-icon violet">◈</span></div><strong id="dashBalance">₹0</strong><small class="positive">Income minus expenses</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Monthly Budget</span><span class="stat-icon amber">▤</span></div><strong id="dashBudget">₹0</strong><small class="muted">Your planned spending limit</small></article>
+        </div>
+        <div class="money-highlight" aria-label="Total spending and savings summary">
+          <article class="money-highlight-card spent"><div class="money-highlight-copy"><span class="money-highlight-kicker">MONEY SPENT</span><h3>Total Expenses</h3><div class="money-highlight-amount" id="visualTotalSpent">₹0</div><div class="money-highlight-note">All recorded expenses</div></div><div class="money-highlight-art" aria-hidden="true">↗</div></article>
+          <article class="money-highlight-card saved"><div class="money-highlight-copy"><span class="money-highlight-kicker">MONEY SAVED</span><h3>Total Savings</h3><div class="money-highlight-amount" id="visualTotalSaved">₹0</div><div class="money-highlight-note">Saved across your savings goals</div></div><div class="money-highlight-art" aria-hidden="true">✧</div></article>
+        </div>
+        <div class="dashboard-grid"><div class="panel"><div class="panel-head"><div><h3>Spending overview</h3><p>Income and expenses recorded so far</p></div><span class="pill">All time</span></div><div class="chart-wrap"><canvas id="overviewChart"></canvas></div></div><div class="panel"><div class="panel-head"><div><h3>Budget usage</h3><p>Expenses compared with your budget</p></div></div><div class="budget-meter"><div class="meter-number" id="budgetPercent">0%</div><div class="meter-track"><div id="budgetMeterFill"></div></div><p id="budgetMeterText">Set a budget to see your progress.</p></div></div></div>
+        <div class="panel"><div class="panel-head"><div><h3>Recent transactions</h3><button class="text-btn" data-go="reports">View all →</button></div></div><div class="table-wrap"><table><thead><tr><th>DESCRIPTION</th><th>CATEGORY</th><th>DATE</th><th>TYPE</th><th class="right">AMOUNT</th></tr></thead><tbody id="recentTable"><tr><td colspan="5" class="empty">No transactions yet. Add income or expenses to get started.</td></tr></tbody></table></div></div>
+      </section>
+
+      <section class="page" id="page-income">
+        <div class="page-intro"><div><span class="eyebrow">MONEY IN</span><h2>Income Management</h2><p>Record money you receive as a student.</p></div></div>
+        <div class="form-layout"><div class="panel form-panel"><div class="panel-head"><div><h3>Add new income</h3><p>Enter your income details below.</p></div><span class="stat-icon mint">↙</span></div><form id="incomeForm" class="entry-form"><label>Income source<input id="incomeTitle" placeholder="e.g. Monthly allowance" required></label><div class="two-fields"><label>Amount (₹)<input id="incomeAmount" type="number" min="1" step="0.01" placeholder="e.g. 5000" required></label><label>Received date<input id="incomeDate" type="date" required></label></div><label>Category<select id="incomeCategory"><option>Allowance</option><option>Scholarship</option><option>Part-time work</option><option>Family support</option><option>Other</option></select></label><label>Notes <span class="optional">(optional)</span><textarea id="incomeNotes" rows="3" placeholder="Add a short note..."></textarea></label><button class="primary-btn full-btn" type="submit">＋ Save income</button></form></div><div class="panel tip-panel"><div class="tip-symbol">✦</div><h3>Every rupee has a purpose.</h3><p>Record all the money you receive, such as pocket money, scholarships, family support or part-time earnings.</p><div class="tip-line"></div><small>TIP FOR STUDENTS</small><b>Update your income regularly to keep your available balance accurate.</b></div></div>
+        <div class="panel" id="incomeHistoryPanel"><div class="panel-head"><div><h3>Income history</h3><p>Your recorded income entries</p></div><strong class="table-total" id="incomeTotal">₹0</strong></div><div class="table-wrap"><table><thead><tr><th>SOURCE</th><th>CATEGORY</th><th>DATE</th><th class="right">AMOUNT</th><th></th></tr></thead><tbody id="incomeTable"></tbody></table></div></div>
+      </section>
+
+      <section class="page" id="page-expenses">
+        <div class="page-intro"><div><span class="eyebrow">MONEY OUT</span><h2>Expense Tracking</h2><p>Understand where your money goes every day.</p></div></div>
+        <div class="form-layout"><div class="panel form-panel"><div class="panel-head"><div><h3>Record an expense</h3><p>Add your spending details.</p></div><span class="stat-icon pink">↗</span></div><form id="expenseForm" class="entry-form"><label>Expense description<input id="expenseTitle" placeholder="e.g. College bus pass" required></label><div class="two-fields"><label>Amount (₹)<input id="expenseAmount" type="number" min="1" step="0.01" placeholder="e.g. 600" required></label><label>Expense date<input id="expenseDate" type="date" required></label></div><label>Category<select id="expenseCategory"><option>Food</option><option>Travel</option><option>Education</option><option>Accommodation</option><option>Shopping</option><option>Entertainment</option><option>Health</option><option>Other</option></select></label><label>Notes <span class="optional">(optional)</span><textarea id="expenseNotes" rows="3" placeholder="Add a short note..."></textarea></label><button class="primary-btn full-btn" type="submit">＋ Save expense</button></form></div><div class="tip-panel expense-tip"><div class="tip-symbol">◈</div><h3>Spend with awareness.</h3><p>Small daily expenses can add up. Recording them helps you identify spending patterns and make better choices.</p><div class="tip-line"></div><small>SMART SPENDING</small><b>Before spending, ask yourself: Is this a need or a want?</b></div></div>
+        <div class="panel" id="expenseHistoryPanel"><div class="panel-head"><div><h3>Expense history</h3><p>Your recorded spending entries</p></div><strong class="table-total" id="expenseTotal">₹0</strong></div><div class="table-wrap"><table><thead><tr><th>DESCRIPTION</th><th>CATEGORY</th><th>DATE</th><th class="right">AMOUNT</th><th></th></tr></thead><tbody id="expenseTable"></tbody></table></div></div>
+      </section>
+
+      <section class="page" id="page-budget">
+        <div class="page-intro"><div><span class="eyebrow">PLAN AHEAD</span><h2>Budget Planning</h2><p>Set a monthly spending limit that works for your student life.</p></div></div>
+        <div class="budget-layout"><div class="panel form-panel"><div class="panel-head"><div><h3>Monthly budget</h3><p>Choose how much you plan to spend this month.</p></div><span class="stat-icon violet">▤</span></div><form id="budgetForm" class="entry-form"><label>Monthly budget amount (₹)<input id="budgetAmount" type="number" min="1" step="0.01" placeholder="e.g. 8000" required></label><label>Budget month<input id="budgetMonth" type="month" required></label><button class="primary-btn full-btn" type="submit">Save budget plan</button></form></div><div class="panel budget-summary"><span class="eyebrow">THIS MONTH'S PLAN</span><h3 id="budgetMonthLabel">No budget set</h3><div class="budget-big" id="budgetBig">₹0</div><p>Monthly spending limit</p><div class="meter-track"><div id="budgetPageFill"></div></div><div class="budget-legend"><span>Spent <b id="budgetSpent">₹0</b></span><span>Remaining <b id="budgetRemaining">₹0</b></span></div></div></div>
+        <div class="panel"><div class="panel-head"><div><h3>Budget planning tips</h3><p>A balanced student budget can make everyday expenses easier to manage.</p></div></div><div class="tips-grid"><div class="mini-tip"><span>01</span><b>List your needs</b><p>Prioritise food, travel, education and essential costs.</p></div><div class="mini-tip"><span>02</span><b>Set spending limits</b><p>Decide a reasonable amount for each spending category.</p></div><div class="mini-tip"><span>03</span><b>Review every week</b><p>Compare actual expenses with your plan and adjust when needed.</p></div></div></div>
+      </section>
+
+      <section class="page" id="page-spending">
+        <div class="page-intro"><div><span class="eyebrow">YOUR MONEY AT A GLANCE</span><h2>Spending & Savings</h2><p>See how much you have spent and how much you have saved in one place.</p></div></div>
+        <div class="money-highlight spending-page-highlight" aria-label="Total spending and savings summary">
+          <article class="money-highlight-card spent"><div class="money-highlight-copy"><span class="money-highlight-kicker">TOTAL MONEY SPENT</span><h3>Your Expenses</h3><div class="money-highlight-amount" id="spendingPageTotalSpent">₹0</div><div class="money-highlight-note">Based on all expenses recorded in this portal</div></div><div class="money-highlight-art" aria-hidden="true">↗</div></article>
+          <article class="money-highlight-card saved"><div class="money-highlight-copy"><span class="money-highlight-kicker">TOTAL MONEY SAVED</span><h3>Your Savings</h3><div class="money-highlight-amount" id="spendingPageTotalSaved">₹0</div><div class="money-highlight-note">Based on amounts saved in your savings goals</div></div><div class="money-highlight-art" aria-hidden="true">✧</div></article>
+        </div>
+        <div class="panel spending-message-panel"><div class="spending-message-icon">✦</div><div><h3>Spend mindfully. Save consistently.</h3><p>Your totals update automatically whenever you add or edit your expenses and savings goals.</p></div></div>
+      </section>
+
+      <section class="page" id="page-savings">
+        <div class="page-intro"><div><span class="eyebrow">FUTURE YOU</span><h2>Savings Goals</h2><p>Turn the things you want into achievable savings plans.</p></div></div>
+        <div class="form-layout"><div class="panel form-panel"><div class="panel-head"><div><h3>Create a savings goal</h3><p>What are you saving for?</p></div><span class="stat-icon amber">◎</span></div><form id="goalForm" class="entry-form"><label>Goal name<input id="goalName" placeholder="e.g. New laptop" required></label><div class="two-fields"><label>Target amount (₹)<input id="goalTarget" type="number" min="1" step="0.01" placeholder="e.g. 60000" required></label><label>Already saved (₹)<input id="goalSaved" type="number" min="0" step="0.01" value="0"></label></div><label>Target date<input id="goalDate" type="date"></label><button class="primary-btn full-btn" type="submit">＋ Create savings goal</button></form></div><div class="tip-panel savings-tip"><div class="tip-symbol">◎</div><h3>Dream it. Plan it. Save for it.</h3><p>Whether it is a laptop, course fee, educational trip or emergency fund, give your goal a name and track your progress.</p><div class="tip-line"></div><small>ONE STEP AT A TIME</small><b>Start with an amount you can comfortably save.</b></div></div>
+        <div class="section-heading"><div><span class="eyebrow">YOUR TARGETS</span><h2>My savings goals</h2></div><span class="pill" id="goalCount">0 goals</span></div><div class="goals-grid" id="goalsGrid"><div class="panel empty-goal">Your savings goals will appear here.</div></div>
+      </section>
+
+      <section class="page" id="page-reports">
+        <div class="page-intro"><div><span class="eyebrow">KNOW YOUR NUMBERS</span><h2>Reports & Analytics</h2><p>Simple insights into your income, expenses and savings.</p></div><button class="outline-btn" id="exportBtn">↓ Export CSV</button></div>
+        <div class="stats-grid"><article class="stat-card"><div class="stat-top"><span>Income</span><span class="stat-icon mint">↙</span></div><strong id="reportIncome">₹0</strong></article><article class="stat-card"><div class="stat-top"><span>Expenses</span><span class="stat-icon pink">↗</span></div><strong id="reportExpense">₹0</strong></article><article class="stat-card"><div class="stat-top"><span>Net Balance</span><span class="stat-icon violet">◈</span></div><strong id="reportBalance">₹0</strong></article><article class="stat-card"><div class="stat-top"><span>Savings Goals</span><span class="stat-icon amber">◎</span></div><strong id="reportGoals">0</strong></article></div>
+        <div class="dashboard-grid"><div class="panel"><div class="panel-head"><div><h3>Income vs expenses</h3><p>Overall financial comparison</p></div></div><div class="chart-wrap"><canvas id="reportChart"></canvas></div></div><div class="panel"><div class="panel-head"><div><h3>Expense categories</h3><p>How your expenses are distributed</p></div></div><div class="chart-wrap"><canvas id="categoryChart"></canvas></div><div id="categoryLegend" class="category-legend"></div><div id="categoryDetails" class="report-category-details" aria-live="polite"></div></div></div>
+        <div class="panel"><div class="panel-head"><div><h3>Financial summary</h3><p>A quick summary of your current records</p></div></div><div class="summary-row"><span>Total transactions</span><b id="reportTransactions">0</b></div><div class="summary-row"><span>Average expense</span><b id="averageExpense">₹0</b></div><div class="summary-row"><span>Goal amount remaining</span><b id="goalRemainingTotal">₹0</b></div></div>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="page-intro"><div><span class="eyebrow">YOUR ACCOUNT</span><h2>Profile & Settings</h2><p>Manage your student profile and preferences.</p></div></div>
+        <div class="settings-layout"><div class="panel profile-card"><div class="profile-avatar" id="profileAvatar">S</div><h3 id="profileDisplayName">Student</h3><p>Student account</p><div id="profileSavedDetails" class="profile-saved-details"></div><span class="pill">SpendWise member</span></div><div class="panel form-panel"><div class="panel-head"><div><h3>Personal information</h3><p>Update your profile details.</p></div></div><form id="profileForm" class="entry-form"><label>Full name<input id="profileName" placeholder="Enter your name" required></label><label>Email address<input id="profileEmail" type="email" placeholder="student@example.com"></label><label>College / Institution<input id="profileCollege" placeholder="Enter your college name"></label><label>Course / Department<input id="profileCourse" placeholder="e.g. B.Tech - CSE"></label><button class="primary-btn full-btn" type="submit">Save profile</button></form></div></div>
+        <div class="panel danger-zone"><div><h3>Reset demo data</h3><p>Delete all locally saved demo transactions, budgets and goals from this browser.</p></div><button class="danger-btn" id="resetBtn">Reset all data</button></div>
+      </section>
+      <footer>© 2026 Student Expenses Portal <span>Designed for smarter student money habits ✦</span></footer>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+
+// Cross-browser compatibility helpers.
+// Some browsers restrict localStorage on pages opened directly as file://.
+const portalMemoryStore = Object.create(null);
+const portalStorage = {
+  getItem(key) {
+    try { return window.portalStorage.getItem(key); }
+    catch (error) { return Object.prototype.hasOwnProperty.call(portalMemoryStore, key) ? portalMemoryStore[key] : null; }
+  },
+  setItem(key, value) {
+    try { window.portalStorage.setItem(key, value); }
+    catch (error) { portalMemoryStore[key] = String(value); }
+  },
+  removeItem(key) {
+    try { window.portalStorage.removeItem(key); }
+    catch (error) { delete portalMemoryStore[key]; }
+  }
+};
+function cloneDefaultData() {
+  return JSON.parse(JSON.stringify(defaultData));
+}
+
+const AUTH_KEY='student_expenses_portal_account_v1';
+const authScreen=document.getElementById('authScreen'), appShell=document.getElementById('appShell');
+function showAuthPanel(which){['login','create','forgot'].forEach(name=>{document.getElementById(name+'Panel').hidden=name!==which;});['loginMessage','createMessage','forgotMessage'].forEach(id=>{const el=document.getElementById(id);el.textContent='';el.className='auth-message';});}
+function enterPortal(username){authScreen.hidden=true;appShell.hidden=false;const profileName=document.getElementById('profileName');if(profileName&&!profileName.value){profileName.value=username;data.profile.name=username;save()}renderAll()}
+document.getElementById('showCreate').addEventListener('click',()=>showAuthPanel('create'));
+document.getElementById('showLogin').addEventListener('click',()=>showAuthPanel('login'));
+document.getElementById('showForgot').addEventListener('click',()=>showAuthPanel('forgot'));
+document.getElementById('backToLogin').addEventListener('click',()=>showAuthPanel('login'));
+document.getElementById('createForm').addEventListener('submit',e=>{e.preventDefault();const username=document.getElementById('createUsername').value.trim(),email=document.getElementById('createEmail').value.trim().toLowerCase(),password=document.getElementById('createPassword').value,confirm=document.getElementById('confirmPassword').value,msg=document.getElementById('createMessage');if(password!==confirm){msg.textContent='Passwords do not match.';return}if(portalStorage.getItem(AUTH_KEY)){msg.textContent='An account already exists in this browser. Please login.';return}portalStorage.setItem(AUTH_KEY,JSON.stringify({username,email,password}));document.getElementById('loginUsername').value=username;document.getElementById('loginPassword').value='';showAuthPanel('login');document.getElementById('loginMessage').className='auth-message ok';document.getElementById('loginMessage').textContent='Account created successfully. Please login.'});
+document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();const saved=JSON.parse(portalStorage.getItem(AUTH_KEY)||'null'),username=document.getElementById('loginUsername').value.trim(),password=document.getElementById('loginPassword').value,msg=document.getElementById('loginMessage');if(!saved){msg.textContent='No account found. Please create an account first.';return}if(saved.username!==username||saved.password!==password){msg.textContent='Incorrect username or password.';return}enterPortal(username)});
+document.getElementById('forgotForm').addEventListener('submit',e=>{e.preventDefault();const saved=JSON.parse(portalStorage.getItem(AUTH_KEY)||'null'),username=document.getElementById('forgotUsername').value.trim(),email=document.getElementById('forgotEmail').value.trim().toLowerCase(),password=document.getElementById('forgotPassword').value,confirm=document.getElementById('forgotConfirm').value,msg=document.getElementById('forgotMessage');if(!saved){msg.textContent='No account found. Please create an account first.';return}if(!saved.email){msg.textContent='This account has no recovery email. Create a new account with an email address to use password recovery.';return}if(saved.username!==username||saved.email.toLowerCase()!==email){msg.textContent='Username or registered email does not match.';return}if(password!==confirm){msg.textContent='New passwords do not match.';return}if(password.length<4){msg.textContent='Password must contain at least 4 characters.';return}saved.password=password;portalStorage.setItem(AUTH_KEY,JSON.stringify(saved));document.getElementById('loginUsername').value=username;document.getElementById('loginPassword').value='';showAuthPanel('login');document.getElementById('loginMessage').className='auth-message ok';document.getElementById('loginMessage').textContent='Password reset successfully. Please login with your new password.'});
+const KEY='spendwise_student_budget_v1';
+const defaultData={profile:{name:'Student',email:'',college:'',course:''},transactions:[],budget:{amount:0,month:new Date().toISOString().slice(0,7)},goals:[]};
+let data=loadData(), overviewChart, reportChart, categoryChart;
+function loadData(){try{return {...cloneDefaultData(),...JSON.parse(portalStorage.getItem(KEY)||'{}')}}catch(e){return cloneDefaultData()}}
+function save(){portalStorage.setItem(KEY,JSON.stringify(data));renderAll()}
+function money(n){return '₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2})}
+function sum(type){return data.transactions.filter(t=>t.type===type).reduce((a,t)=>a+Number(t.amount),0)}
+function balance(){return sum('income')-sum('expense')}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove('show'),2400)}
+function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+page).classList.add('active');document.querySelectorAll('.nav-link').forEach(a=>a.classList.toggle('active',a.dataset.page===page));const names={home:'Home',dashboard:'Dashboard',income:'Income Management',expenses:'Expense Tracking',budget:'Budget Planning',spending:'Spending & Savings',savings:'Savings Goals',reports:'Reports & Analytics',settings:'Profile & Settings'};document.getElementById('pageTitle').textContent=names[page];document.getElementById('sidebar').classList.remove('open');if(page==='reports')setTimeout(renderReportsAnalytics,60);if(page==='dashboard')setTimeout(renderCharts,40);window.location.hash=page}
+document.querySelectorAll('[data-page]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();go(a.dataset.page)}));
+document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',()=>go(a.dataset.go)));
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('open'));
+const today=new Date().toISOString().slice(0,10);['incomeDate','expenseDate'].forEach(id=>document.getElementById(id).value=today);document.getElementById('budgetMonth').value=new Date().toISOString().slice(0,7);
+function addTransaction(type,form){const prefix=type==='income'?'income':'expense';const amount=Number(document.getElementById(prefix+'Amount').value);if(!form.reportValidity())return;if(!amount||amount<=0){toast('Please enter a valid amount.');return}const entry={id:Date.now().toString(),type,title:document.getElementById(prefix+'Title').value.trim(),amount,date:document.getElementById(prefix+'Date').value,category:document.getElementById(prefix+'Category').value,notes:document.getElementById(prefix+'Notes').value};data.transactions.unshift(entry);form.reset();document.getElementById(prefix+'Date').value=today;save();toast(type==='income'?'Income saved successfully! Fields cleared; your entry is shown below.':'Expense saved successfully! Fields cleared; your entry is shown below.');const historyId=type==='income'?'incomeTable':'expenseTable';setTimeout(()=>document.getElementById(type==='income'?'incomeHistoryPanel':'expenseHistoryPanel').scrollIntoView({behavior:'smooth',block:'start'}),120)}
+document.getElementById('incomeForm').addEventListener('submit',e=>{e.preventDefault();addTransaction('income',e.target)});
+document.getElementById('expenseForm').addEventListener('submit',e=>{e.preventDefault();addTransaction('expense',e.target)});
+document.getElementById('budgetForm').addEventListener('submit',e=>{e.preventDefault();if(!e.target.reportValidity())return;const amount=Number(document.getElementById('budgetAmount').value);const month=document.getElementById('budgetMonth').value;if(amount<=0||!month)return toast('Enter a valid budget amount and month.');data.budget={amount,month};e.target.reset();save();toast('Budget saved! Form cleared and your saved plan is shown beside it.');setTimeout(()=>document.querySelector('#page-budget .budget-summary').scrollIntoView({behavior:'smooth',block:'center'}),120)});
+document.getElementById('goalForm').addEventListener('submit',e=>{e.preventDefault();if(!e.target.reportValidity())return;const target=Number(document.getElementById('goalTarget').value),saved=Number(document.getElementById('goalSaved').value||0);if(target<=0||saved<0)return toast('Please enter valid goal amounts.');data.goals.unshift({id:Date.now().toString(),name:document.getElementById('goalName').value.trim(),target,saved,date:document.getElementById('goalDate').value});e.target.reset();document.getElementById('goalSaved').value='';save();toast('Savings goal created! Form cleared and your saved goal is shown below.');setTimeout(()=>document.getElementById('goalsGrid').scrollIntoView({behavior:'smooth',block:'start'}),120)});
+document.getElementById('profileForm').addEventListener('submit',e=>{e.preventDefault();data.profile={name:document.getElementById('profileName').value.trim()||'Student',email:document.getElementById('profileEmail').value, college:document.getElementById('profileCollege').value,course:document.getElementById('profileCourse').value};save();e.target.reset();toast('Profile saved successfully! Your saved details are shown in the profile card.')});
+function removeTransaction(id){if(!confirm('Delete this transaction?'))return;data.transactions=data.transactions.filter(t=>t.id!==id);save();toast('Transaction deleted.')}
+function removeGoal(id){if(!confirm('Delete this savings goal?'))return;data.goals=data.goals.filter(g=>g.id!==id);save();toast('Savings goal deleted.')}
+function rows(items,withType=false){if(!items.length)return `<tr><td colspan="${withType?5:5}" class="empty">No records to display yet.</td></tr>`;return items.map(t=>`<tr><td>${esc(t.title)}</td><td>${esc(t.category)}</td><td>${t.date||'—'}</td>${withType?`<td class="type-${t.type}">${t.type==='income'?'Income':'Expense'}</td>`:''}<td class="right">${money(t.amount)}</td><td><button class="delete-btn" title="Delete" aria-label="Delete" onclick="removeTransaction('${t.id}')">🗑</button></td></tr>`).join('')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderAll(){const inc=sum('income'),exp=sum('expense'),bal=balance(),budget=Number(data.budget.amount||0),goals=data.goals.length;
+['homeIncome','dashIncome','reportIncome'].forEach(id=>document.getElementById(id).textContent=money(inc));['homeExpense','dashExpense','reportExpense'].forEach(id=>document.getElementById(id).textContent=money(exp));['homeBalance','dashBalance','reportBalance','heroBalance'].forEach(id=>document.getElementById(id).textContent=money(bal));document.getElementById('homeGoals').textContent=goals;document.getElementById('reportGoals').textContent=goals;document.getElementById('dashBudget').textContent=money(budget);
+document.getElementById('dashName').textContent=data.profile.name||'Student';document.getElementById('sideName').textContent=data.profile.name||'Student';
+document.getElementById('homeIncome').textContent=money(inc);document.getElementById('homeExpense').textContent=money(exp);
+document.getElementById('recentTable').innerHTML=rows(data.transactions.slice(0,6),true);
+const totalSaved=data.goals.reduce((a,g)=>a+Number(g.saved||0),0);document.getElementById('visualTotalSpent').textContent=money(exp);document.getElementById('visualTotalSaved').textContent=money(totalSaved);document.getElementById('spendingPageTotalSpent').textContent=money(exp);document.getElementById('spendingPageTotalSaved').textContent=money(totalSaved);
+const incomeItems=data.transactions.filter(t=>t.type==='income');document.getElementById('incomeTable').innerHTML=rows(incomeItems);document.getElementById('incomeTotal').textContent=money(inc);
+const expenseItems=data.transactions.filter(t=>t.type==='expense');document.getElementById('expenseTable').innerHTML=rows(expenseItems);document.getElementById('expenseTotal').textContent=money(exp);
+const spent=expenseItems.filter(t=>(t.date||'').slice(0,7)===data.budget.month).reduce((a,t)=>a+Number(t.amount),0);const pct=budget?Math.min(100,Math.round(spent/budget*100)):0;document.getElementById('budgetPercent').textContent=pct+'%';document.getElementById('budgetMeterFill').style.width=pct+'%';document.getElementById('budgetMeterText').textContent=budget?`${money(spent)} spent out of ${money(budget)} this month.`:'Set a budget to see your progress.';document.getElementById('budgetMonthLabel').textContent=data.budget.month||'No budget set';document.getElementById('budgetBig').textContent=money(budget);document.getElementById('budgetSpent').textContent=money(spent);document.getElementById('budgetRemaining').textContent=money(Math.max(0,budget-spent));document.getElementById('budgetPageFill').style.width=pct+'%';
+renderGoals();renderProfile();document.getElementById('reportTransactions').textContent=data.transactions.length;document.getElementById('averageExpense').textContent=money(expenseItems.length?exp/expenseItems.length:0);document.getElementById('goalRemainingTotal').textContent=money(data.goals.reduce((a,g)=>a+Math.max(0,g.target-g.saved),0));renderReportsAnalytics()}
+function renderGoals(){document.getElementById('goalCount').textContent=data.goals.length+' goals';const grid=document.getElementById('goalsGrid');if(!data.goals.length){grid.innerHTML='<div class="panel empty-goal">Your savings goals will appear here. Create your first goal above.</div>';return}grid.innerHTML=data.goals.map(g=>{const pct=Math.min(100,Math.round(g.saved/g.target*100));return `<article class="goal-card"><div class="goal-card-top"><span class="goal-icon">◎</span><button class="delete-btn" title="Delete goal" aria-label="Delete goal" onclick="removeGoal('${g.id}')">🗑</button></div><h3>${esc(g.name)}</h3><p>${g.date?'Target date: '+g.date:'No target date set'}</p><div class="goal-progress"><div style="width:${pct}%"></div></div><div class="goal-numbers"><span>${money(g.saved)} saved</span><b>${pct}% · ${money(Math.max(0,g.target-g.saved))} to go</b></div><div class="goal-numbers"><span>Target amount</span><b>${money(g.target)}</b></div></article>`}).join('')}
+function renderProfile(){const p=data.profile;document.getElementById('profileName').value=p.name||'';document.getElementById('profileEmail').value=p.email||'';document.getElementById('profileCollege').value=p.college||'';document.getElementById('profileCourse').value=p.course||'';document.getElementById('profileDisplayName').textContent=p.name||'Student';document.getElementById('profileAvatar').textContent=(p.name||'S').charAt(0).toUpperCase();document.getElementById('profileSavedDetails').innerHTML=[p.email,p.college,p.course].filter(Boolean).map(v=>'<p>'+esc(v)+'</p>').join('')}
+function renderCharts(){if(typeof Chart==='undefined')return;const inc=sum('income'),exp=sum('expense');const common={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#9995a8'}},y:{grid:{color:'#f0eef5'},ticks:{font:{size:9},color:'#aaa6b7'}}}};
+const o=document.getElementById('overviewChart');if(o){if(overviewChart)overviewChart.destroy();overviewChart=new Chart(o,{type:'bar',data:{labels:['Income','Expenses','Balance'],datasets:[{data:[inc,exp,bal],backgroundColor:['#48c89a','#f28ba7','#9177f6'],borderRadius:7,barThickness:35}]},options:common})}
+const r=document.getElementById('reportChart');if(r){if(reportChart)reportChart.destroy();reportChart=new Chart(r,{type:'bar',data:{labels:['Income','Expenses','Balance'],datasets:[{data:[inc,exp,bal],backgroundColor:['#48c89a','#f28ba7','#9177f6'],borderRadius:7,barThickness:35}]},options:common})}
+const c=document.getElementById('categoryChart');if(c){if(categoryChart)categoryChart.destroy();const cats={};data.transactions.filter(t=>t.type==='expense').forEach(t=>cats[t.category]=(cats[t.category]||0)+Number(t.amount));const labels=Object.keys(cats),values=Object.values(cats),colors=['#8061f2','#f18ba8','#54c9a0','#f2bd61','#72a9e9','#b38be8','#ef9871','#9ba0b4'];categoryChart=new Chart(c,{type:'doughnut',data:{labels:labels.length?labels:['No expenses'],datasets:[{data:values.length?values:[1],backgroundColor:colors,borderWidth:0,hoverOffset:5}]},options:{responsive:true,maintainAspectRatio:false,cutout:'69%',plugins:{legend:{display:false}}}});document.getElementById('categoryLegend').innerHTML=labels.map((l,i)=>`<span><i style="background:${colors[i%colors.length]}"></i>${esc(l)} · ${money(values[i])}</span>`).join('')||'<span>No expense categories yet.</span>'}}
+function renderReportsAnalytics(){
+  const reportPage=document.getElementById('page-reports');
+  if(!reportPage)return;
+  const income=sum('income'), expenses=sum('expense'), net=income-expenses;
+  const expenseItems=data.transactions.filter(t=>t.type==='expense');
+  const palette=['#0b8d78','#d98568','#83ad62','#d4a64e','#6f9fc4','#9b83c9','#d17d9b','#8c9a9a'];
+  const categoryTotals={};
+  expenseItems.forEach(item=>{
+    const name=(item.category||'Other').trim()||'Other';
+    if(!categoryTotals[name])categoryTotals[name]={amount:0,count:0};
+    categoryTotals[name].amount+=Number(item.amount)||0;
+    categoryTotals[name].count+=1;
+  });
+  const categories=Object.entries(categoryTotals).sort((a,b)=>b[1].amount-a[1].amount);
+  const legend=document.getElementById('categoryLegend');
+  const details=document.getElementById('categoryDetails');
+  if(details){
+    details.innerHTML=categories.length?categories.map(([name,info],index)=>{
+      const percent=expenses>0?(info.amount/expenses*100):0;
+      return `<div class="report-category-row"><div><div class="report-category-name"><i class="report-category-dot" style="background:${palette[index%palette.length]}"></i>${esc(name)}</div><div class="report-category-meta">${info.count} transaction${info.count===1?'':'s'} · ${percent.toFixed(1)}% of expenses</div></div><div class="report-category-value">${money(info.amount)}</div></div>`;
+    }).join(''):'<div class="report-empty-chart"><div><strong>No expense details yet</strong>Add expenses in Expense Tracking to see category-wise analysis here.</div></div>';
+  }
+  if(legend)legend.innerHTML=categories.length?'<span>Expense breakdown by category</span>':'<span>No expense categories recorded.</span>';
+
+  const reportCanvas=document.getElementById('reportChart');
+  const categoryCanvas=document.getElementById('categoryChart');
+  if(typeof Chart==='undefined'){
+    if(reportCanvas)reportCanvas.parentElement.innerHTML=`<div class="report-empty-chart"><div><strong>Chart library could not load</strong>Check your internet connection and refresh this page. Your recorded totals are still available above.</div></div>`;
+    if(categoryCanvas)categoryCanvas.parentElement.innerHTML=`<div class="report-empty-chart"><div><strong>${categories.length? 'Category details are listed below':'No expense details yet'}</strong>${categories.length?'See the category-wise amounts below the chart area.':'Add expenses to generate your category analysis.'}</div></div>`;
+    return;
+  }
+  const currencyTooltip=context=>money(context.parsed.y??context.parsed);
+  if(reportCanvas){
+    if(reportChart)reportChart.destroy();
+    reportChart=new Chart(reportCanvas,{type:'bar',data:{labels:['Income','Expenses'],datasets:[{label:'Amount',data:[income,expenses],backgroundColor:['#39a987','#d98568'],borderRadius:9,borderSkipped:false,maxBarThickness:68}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:currencyTooltip}}},scales:{x:{grid:{display:false},ticks:{color:'#78918a',font:{size:11,weight:'600'}}},y:{beginAtZero:true,grid:{color:'#edf2ee'},ticks:{color:'#8a9a92',font:{size:10},callback:value=>'₹'+Number(value).toLocaleString('en-IN')}}}}});
+  }
+  if(categoryCanvas){
+    if(categoryChart)categoryChart.destroy();
+    const hasExpenses=categories.length>0;
+    categoryChart=new Chart(categoryCanvas,{type:'doughnut',data:{labels:hasExpenses?categories.map(item=>item[0]):['No expenses recorded'],datasets:[{data:hasExpenses?categories.map(item=>item[1].amount):[1],backgroundColor:hasExpenses?categories.map((_,i)=>palette[i%palette.length]):['#e7eee9'],borderWidth:2,borderColor:'#ffffff',hoverOffset:7}]},options:{responsive:true,maintainAspectRatio:false,cutout:'66%',plugins:{legend:{display:false},tooltip:{callbacks:{label:context=>hasExpenses?`${context.label}: ${money(context.parsed)}`:'No expenses recorded'}}}}});
+  }
+  // Keep the net balance visible in the existing summary card without changing other pages.
+  const balanceCard=document.getElementById('reportBalance');
+  if(balanceCard)balanceCard.textContent=money(net);
+}
+
+document.getElementById('exportBtn').addEventListener('click',()=>{const header=['Type','Description','Category','Date','Amount','Notes'];const lines=[header,...data.transactions.map(t=>[t.type,t.title,t.category,t.date,t.amount,t.notes||''])].map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(','));const blob=new Blob([lines.join('\n')],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='student-budget-report.csv';a.click();URL.revokeObjectURL(url);toast('CSV report exported.')});
+document.getElementById('resetBtn').addEventListener('click',()=>{if(!confirm('This will remove all demo data saved in this browser. Continue?'))return;data=cloneDefaultData();save();toast('Demo data has been reset.')});
+const page=location.hash.replace('#','');go(['home','dashboard','income','expenses','budget','spending','savings','reports','settings'].includes(page)?page:'home');renderAll();
+
+</script>
+</body></html>
